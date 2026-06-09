@@ -17,3 +17,16 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+use App\Http\Controllers\ApiSiswaCon;
+use App\Http\Controllers\BeritaCon;
+
+Route::get('/apisiswa', [ApiSiswaCon::class, 'index']);
+Route::post('/apisiswa', [ApiSiswaCon::class, 'tambahsiswa']);
+Route::post('/apipesankesan', [BeritaCon::class, 'apipesankesan']);
+
+Route::get('/test', function () {
+    return response()->json([
+        "status" => "api hidup"
+    ]);
+});

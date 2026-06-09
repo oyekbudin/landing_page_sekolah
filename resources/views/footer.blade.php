@@ -23,7 +23,7 @@
 
 <div class="col-lg-4 footer-about">
   <div class="social-links d-flex justify-content-end mt-4">
-    <a href=""><i class="bi bi-twitter-x"></i></a>
+    
     <a href=""><i class="bi bi-facebook"></i></a>
     <a href=""><i class="bi bi-instagram"></i></a>
     <a href=""><i class="bi bi-linkedin"></i></a>
@@ -69,6 +69,23 @@
 
   <!-- Main JS File -->
   <script src="{{ asset('assets/js/main.js')}}"></script>
+  
+  <script>
+const colors = [
+    '#fff3cd', // kuning
+    '#d1ecf1', // biru muda
+    '#d4edda', // hijau muda
+    '#f8d7da', // merah muda
+    '#e2e3e5', // abu
+    '#fde2e4', // pink
+    '#e0f7fa'  // cyan
+];
+
+document.querySelectorAll('.mading-card').forEach(card => {
+    let randomColor = colors[Math.floor(Math.random() * colors.length)];
+    card.style.backgroundColor = randomColor;
+});
+</script>
 
 </body>
 

@@ -18,6 +18,7 @@ use App\Http\Controllers\AdminsCon;
 use App\Http\Controllers\SiswaCon;
 use App\Http\Controllers\AbsensiCon;
 use App\Http\Controllers\BeritaCon;
+use App\Http\Controllers\ApiSiswaCon;
 use App\Models\Absensis;
 use Illuminate\Http\Request;   
 use App\Models\Siswas;
@@ -94,9 +95,10 @@ Route::get('/_galeri', [BeritaCon::class, 'galeri']);
 Route::get('/_berita', [BeritaCon::class, 'katalog']);
 Route::get('/berita/{slug}', [BeritaCon::class, 'show'])->name('show');
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('home');
-});
+});*/
+Route::get('/', [BeritaCon::class, 'home']);
 
 Route::get('/profil', function () {
     return view('about');
@@ -125,6 +127,9 @@ Route::get('/visi-misi', function () {
 Route::get('/_sejarah', function () {
     return view('sejarah');
 });
+Route::get('/_jadwal', function () {
+    return view('jadwal');
+});
 Route::get('/_struktur', function () {
     return view('strukturorg');
 });
@@ -152,3 +157,19 @@ Route::get('/dashboard', function () {
 use App\Http\Controllers\ImageController;
 
 Route::post('/upload-image', [ImageController::class, 'upload'])->name('upload.image');
+
+// di routes/web.php
+/*use App\Http\Controllers\RfidController;
+
+Route::post('/rfid', [RfidController::class, 'store'])
+     ->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
+     
+    */ 
+//api siswa
+Route::get('/apisiswa', [ApiSiswaCon::class, 'index']);
+
+Route::get('/test', function () {
+    return response()->json([
+        "status" => "api hidup"
+    ]);
+});

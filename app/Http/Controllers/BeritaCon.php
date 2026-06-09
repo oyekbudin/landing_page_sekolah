@@ -6,6 +6,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use App\Models\Beritas; 
+use App\Models\Pesan_kesan;
 use Illuminate\Http\Request;
 
 use Intervention\Image\Laravel\Facades\Image;
@@ -25,6 +26,12 @@ class BeritaCon extends BaseController
     {
         $databerita = Beritas::orderBy('tanggal_publish', 'desc')->get(); // Ambil semua data dari tabel Siswa
         return view('berita', compact('databerita')); // Kirim data ke view
+    }
+    public function home()
+    {
+        $databerita = Beritas::orderBy('tanggal_publish', 'desc')->get(); // Ambil semua data dari tabel Siswa
+        $pesankesan = Pesan_kesan::orderBy('tanggal', 'desc')->get();
+        return view('home', compact('databerita', 'pesankesan'));
     }
 
     public function show($slug)
@@ -130,6 +137,28 @@ public function galeri()
 {
     $beritas = Beritas::all();
     return view('galeri', compact('beritas'));
+}
+
+public function apipesankesan(Request $request)
+{
+    // validasi
+    $validated = $request->validate([
+        'penulis' => 'required|string|max:255',
+        'konten'  => 'required|string'
+    ]);
+
+    // simpan
+    $data = Pesan_kesan::create([
+        'penulis' => strtoupper($validated['penulis']),
+        'konten'  => $validated['konten'],
+    ]);
+
+    // response JSON
+    return response()->json([
+        'status' => true,
+        'message' => 'Berhasil disimpan',
+        'data' => $data
+    ], 200);
 }
 
 
